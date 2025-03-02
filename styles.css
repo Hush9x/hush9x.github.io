@@ -98,3 +98,31 @@ body {
     padding-left: 15px;
     font-family: Ubuntu;
 }
+
+.battery-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 1;
+    font-family: ubuntu;
+}
+
+.battery-container:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
