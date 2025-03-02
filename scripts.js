@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
         img.addEventListener("click", function () {
             const imageUrl = this.getAttribute("src");
             if (imageLinks[imageUrl]) {
-                window.location.href = `active/embed.html?url=${encodeURIComponent(imageLinks[imageUrl])}`;
+                window.location.href = `/active/embed.html?url=${encodeURIComponent(imageLinks[imageUrl])}`;
             }
         });
     });
