@@ -20,6 +20,8 @@ function updateBatteryStatus(battery) {
     
     const tooltip = document.getElementById('battery-tooltip');
     tooltip.textContent = tooltipText;
+
+    // Show or hide lightning bolt
     lightningBolt.style.display = battery.charging ? 'block' : 'none';
 }
 
@@ -37,3 +39,14 @@ if ('getBattery' in navigator) {
 
 updateTime();
 setInterval(updateTime, 1000);
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const logoIcon = document.getElementById("logo-icon");
+
+    if (logoIcon) {
+        logoIcon.addEventListener("click", function () {
+            window.location.href = "newpage.html";
+        });
+    }
+});
