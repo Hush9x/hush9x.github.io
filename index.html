@@ -16,7 +16,6 @@
             HUSH
         </div>
     </div>
-
     <div class="navbar">
         <div class="left-section">
             <div class="circle"></div>
@@ -25,12 +24,24 @@
             <div class="tab active">Desk 1</div>
         </div>
         <div class="right-section">
-            <img src="assets/img/logo.png" alt="Icon">
-            <img src="assets/ai.png" alt="Icon">
-            <img src="assets/mail.png" alt="Icon">
-            <img src="assets/chat.png" alt="Icon">
-            <div class="time">Mar 1 | 9:08</div>
+            <img id="logo-icon" src="assets/img/logo.png" alt="Icon">
+            <img id="ai-icon" src="assets/ai.png" alt="Icon">
+            <img id="mail-icon" src="assets/mail.png" alt="Icon">
+            <img id="chat-icon" src="assets/chat.png" alt="Icon">
+            <div class="time" id="time-display">Mar 1 | 9:08:00</div>
+            <div id="battery-display" class="battery-container">
+                <svg id="battery-icon" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="6" width="20" height="12" rx="2" ry="2" fill="#e0e0e0"/>
+                    <rect id="battery-level" x="2" y="6" width="0" height="12" rx="2" ry="2" fill="#76c7c0"/>
+                    <rect id="battery-charge" x="21" y="9" width="1" height="6" fill="#76c7c0" style="display:none;" />
+                    <svg id="lightning-bolt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="yellow" style="display:none; position: absolute; top: 2px; left: 5px;">
+                        <path d="M13 2L5 14h4v8l8-12h-4z"/>
+                    </svg>
+                </svg>
+                <span id="battery-tooltip" class="tooltip"></span>
+            </div>
         </div>
     </div>
+    <script src="scripts.js"></script>
 </body>
 </html>
