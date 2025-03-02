@@ -20,8 +20,7 @@ function updateBatteryStatus(battery) {
     
     const tooltip = document.getElementById('battery-tooltip');
     tooltip.textContent = tooltipText;
-
-    // Show or hide lightning bolt
+    
     lightningBolt.style.display = battery.charging ? 'block' : 'none';
 }
 
