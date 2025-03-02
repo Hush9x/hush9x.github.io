@@ -38,8 +38,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0 15px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
     box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.7);
     border: 1px solid #3a3a3a;
 }
