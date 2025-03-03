@@ -61,7 +61,7 @@
         }
 
         #tab-list .active {
-            background-image:url("bg.png");
+            background-image: url("bg.png");
             color: white;
             transition: none;
         }
@@ -94,7 +94,7 @@
             height: calc(100% - 20px);
             border: none;
             display: none;
-            background-image: url("bg.png")
+            background-image: url("bg.png");
         }
 
         #frame-container iframe.active {
@@ -314,7 +314,6 @@
         #logo-icon {
             cursor: pointer;
         }
-
     </style>
 </head>
 
@@ -371,7 +370,6 @@
             const tabList = document.getElementById("tab-list");
             const iframeContainer = document.getElementById("frame-container");
             const inputField = document.getElementById("iv");
-            const tabSearchField = document.getElementById("tab-search");
             const backButton = document.getElementById("back-button");
             const forwardButton = document.getElementById("forward-button");
             const refreshButton = document.getElementById("refresh-button");
@@ -397,22 +395,6 @@
 
                             activeIframe.src = `/active/embed.html?url=${encodeURIComponent(inputValue)}`;
                             updateFaviconAndTitle(activeTab, decodeURIComponent(inputField.value.trim()));
-                        }
-                    }
-                }
-            });
-
-            tabSearchField.addEventListener("keypress", (event) => {
-                if (event.key === "Enter") {
-                    const activeTab = tabList.querySelector(".active");
-                    if (activeTab) {
-                        const activeTabId = activeTab.dataset.tabId;
-                        const activeIframe = iframeContainer.querySelector(`[data-tab-id='${activeTabId}']`);
-                        if (activeIframe) {
-                            const searchQuery = tabSearchField.value.trim();
-                            const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
-                            activeIframe.src = `https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(searchUrl)}`;
-                            updateFaviconAndTitle(activeTab, searchQuery);
                         }
                     }
                 }
