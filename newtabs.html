@@ -330,7 +330,7 @@
         <button class="nav-button" id="back-button"><i class="fa-regular fa-arrow-left"></i></button>
         <button class="nav-button" id="forward-button"><i class="fa-regular fa-arrow-right"></i></button>
         <button class="nav-button" id="refresh-button"><i class="fa-regular fa-rotate-right"></i></button>
-        <input type="text" id="iv" placeholder="Search Google or type a URL" autocomplete="off" />
+        <input type="text" id="iv" placeholder="Search DDG or type a url..." autocomplete="off" />
         <button onclick="alert('nothing yet ;)')" class="nav-button" id="extra-button"><i class="fa-regular fa-ellipsis-vertical"></i></button>
     </div>
 
@@ -388,7 +388,7 @@
                         if (activeIframe) {
                             let inputValue = inputField.value.trim();
                             if (!isUrl(inputValue)) {
-                                inputValue = `https://www.google.com/search?q=${encodeURIComponent(inputValue)}`;
+                                inputValue = `https://www.duckduckgo.com/search?q=${encodeURIComponent(inputValue)}`;
                             } else {
                                 if (!(inputValue.startsWith('https://') || inputValue.startsWith('http://'))) {
                                     inputValue = 'https://' + inputValue;
