@@ -131,17 +131,6 @@ body {
     cursor: pointer;
 }
 
-.newpageimgs {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 10px;
-    justify-items: center;
-    align-items: center;
-    max-width: 100vw;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
 .imgnewpage {
     width: 70px; 
     height: 70px; 
@@ -161,4 +150,62 @@ body {
     width: 100%; 
     height: auto; 
     display: block; 
+}
+
+.NewpageText {
+    font-family: Ubuntu, sans-serif;
+    font-weight: bold; 
+    color: white; 
+    font-size: 20vh;
+    text-align: center; 
+    position: absolute; 
+    top: 30%;
+    left: 53%; 
+    transform: translate(-50%, -50%); 
+    z-index: 2; 
+}
+
+.newpageimgs {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+    max-width: 100vw;
+    padding: 20px;
+    box-sizing: border-box;
+    padding-top: 20vh; 
+    z-index: 1; 
+    position: relative; 
+}
+
+.imglogo {
+    display: flex;
+    align-items: center;
+}
+
+.imglogo1 {
+    width: 20vh;
+    height: auto;
+    margin-right: 0px;
+    position: absolute; 
+    top: 31%;
+    left: 35%; 
+    transform: translate(-50%, -50%); 
+}
+
+#mail-icon {
+    cursor: pointer;
+}
+
+#ai-icon {
+    cursor: pointer;
+}
+
+#chat-icon {
+    cursor: pointer;
+}
+
+#search-icon {
+    cursor: pointer;
 }
