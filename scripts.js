@@ -51,6 +51,46 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+    const logoIcon = document.getElementById("ai-icon");
+
+    if (logoIcon) {
+        logoIcon.addEventListener("click", function () {
+            window.location.href = "ai.html";
+        });
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const logoIcon = document.getElementById("mail-icon");
+
+    if (logoIcon) {
+        logoIcon.addEventListener("click", function () {
+            window.location.href = "/active/embed.html?url=https://mail.google.com/";
+        });
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const logoIcon = document.getElementById("chat-icon");
+
+    if (logoIcon) {
+        logoIcon.addEventListener("click", function () {
+            window.location.href = "/active/embed.html?url=https://nexus-chat-rooms.github.io/nexuschatroom";
+        });
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const logoIcon = document.getElementById("search-icon");
+
+    if (logoIcon) {
+        logoIcon.addEventListener("click", function () {
+            window.location.href = "newtabs.html";
+        });
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
     const imageLinks = {
         "assets/tiktok.png": "https://tiktok.com/",
         "assets/google.png": "https://google.com/",
