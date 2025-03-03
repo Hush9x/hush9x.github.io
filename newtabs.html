@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser - Hush</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://atugatran.github.io/FontAwesome6Pro/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            background-image: url("bg.png");
+            overflow-y: hidden;
+        }
+
+        #tab-bar {
+            display: flex;
+            align-items: center;
+            background: #23262d;
+            padding: 0;
+        }
+
+        #tab-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            overflow: hidden;
+            background: #23262d;
+        }
+
+        #tab-list li {
+            margin-right: 5px;
+            position: relative;
+            padding: 6px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            background: #23262d;
+            width: 225px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            border-radius: 9px;
+            transition: background-color 0.26s;
+            color: white;
+            font-size: 14px;
+        }
+
+        #tab-list li:not(.active):hover {
+            background-image: url("bg.png");
+        }
+
+        #tab-list .active {
+            background-image:url("bg.png");
+            color: white;
+            transition: none;
+        }
+
+        #tab-list img {
+            margin-right: 5px;
+            pointer-events: none;
+            height: 16px;
+            width: 16px;
+        }
+
+        #tab-list .close-btn {
+            margin-left: auto;
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-weight: 100;
+            font-size: 18px;
+            position: absolute;
+            right: 4px;
+        }
+
+        #frame-container {
+            height: calc(100vh - 60px);
+        }
+
+        #frame-container iframe {
+            width: 100%;
+            height: calc(100% - 20px);
+            border: none;
+            display: none;
+            background-image: url("bg.png")
+        }
+
+        #frame-container iframe.active {
+            display: block;
+        }
+
+        #address-bar {
+            margin: 0px;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #address-bar input {
+            width: 100%;
+            border: none;
+            height: 30px;
+            border-radius: 100px;
+            background: #23262d;
+            padding-left: 12px;
+            color: white;
+            outline: none;
+            transition: background 0.26s, font-size 0.16s;
+            font-size: 14px;
+        }
+
+        #address-bar input:hover {
+            background: #46484e;
+        }
+
+        #address-bar input:focus {
+            box-shadow: 0 0 0 1.5px rgb(200, 200, 200);
+            background: #46484e;
+            font-size: 14.1px;
+        }
+
+        #address-bar input::placeholder {
+            color: rgb(200, 200, 200);
+        }
+
+        #iv {
+            flex-grow: 1;
+            margin-right: 5px;
+        }
+
+        #add-tab {
+            margin-left: 0px;
+            border: none;
+            width: 29px;
+            height: 27px;
+            background: none;
+            color: #c4c6d0;
+            font-size: 23px;
+            transition: 0.26s;
+            border-radius: 100px;
+        }
+
+        #add-tab:hover {
+            background: #3b475e;
+        }
+
+        .random-box {
+            width: 27px;
+            height: 27px;
+            background: #383b43;
+            margin: 6px;
+            border-radius: 9px;
+        }
+
+        .nav-button {
+            width: 35px;
+            height: 32px;
+            border-radius: 100px;
+            border: none;
+            background-image: url("bg.png");
+            color: #c4c6d0;
+            font-size: 14px;
+            margin-right: 5px;
+            cursor: pointer;
+            transition: background 0.26s;
+        }
+
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        #search-container {
+            text-align: center;
+            background-image: url("bg.png");
+            padding: 30px 0;
+        }
+
+        #search-container h1 {
+            color: #333;
+            font-family: 'Nanum Gothic', sans-serif;
+            font-size: 32px;
+            color: #888;
+        }
+
+        #search-container input[type="text"] {
+            width: 60%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 24px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            outline: none;
+            color: #444;
+        }
+
+        #search-container input[type="text"]:focus {
+            border: 1px solid #666;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0; /* Align to the left */
+            right: 0; /* Cover the right edge */
+            height: 48px;
+            background-color: #2c2c2c;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.7);
+            border: 1px solid #3a3a3a;
+        }
+
+        .left-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .circle {
+            width: 22px;
+            height: 22px;
+            background-color: #757575;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .tab {
+            background-color: #3a3a3a;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 15px;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out;
+            border: 1px solid #4a4a4a;
+            font-family: Ubuntu;
+        }
+
+        .tab:hover {
+            background-color: #1e1e1e;
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .right-section img {
+            width: 35px;
+            height: 35px;
+            filter: brightness(0.85);
+            border-radius: 8px;
+            padding: 5px;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .right-section img:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: scale(1.1);
+        }
+
+        .time {
+            color: white;
+            font-size: 16px;
+            padding-left: 15px;
+            font-family: Ubuntu;
+        }
+
+        .battery-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 1;
+            font-family: ubuntu;
+        }
+
+        .battery-container:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        #logo-icon {
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="tab-bar">
+        <div class="random-box"></div>
+        <ul id="tab-list"></ul>
+        <button id="add-tab">+</button>
+    </div>
+    
+    <div id="address-bar">
+        <button class="nav-button" id="back-button"><i class="fa-regular fa-arrow-left"></i></button>
+        <button class="nav-button" id="forward-button"><i class="fa-regular fa-arrow-right"></i></button>
+        <button class="nav-button" id="refresh-button"><i class="fa-regular fa-rotate-right"></i></button>
+        <input type="text" id="iv" placeholder="Search Google or type a URL" autocomplete="off" />
+        <button onclick="alert('nothing yet ;)')" class="nav-button" id="extra-button"><i class="fa-regular fa-ellipsis-vertical"></i></button>
+    </div>
+
+    <div id="frame-container"></div>
+
+    <div id="search-container">
+        <h1>HUSH</h1>
+        <input type="text" id="tab-search" placeholder="Search this tab" />
+    </div>
+    
+    <div class="navbar">
+        <div class="left-section">
+            <div class="circle"></div>
+        </div>
+        <div class="middle-section">
+            <div class="tab active">Browser - Hush</div>
+        </div>
+        <div class="right-section">
+            <img id="logo-icon" src="assets/img/logo.png" alt="Icon">
+            <img id="ai-icon" src="assets/ai.png" alt="AI Icon">
+            <img id="mail-icon" src="assets/mail.png" alt="Mail Icon">
+            <img id="chat-icon" src="assets/chat.png" alt="Chat Icon">
+            <div class="time" id="time-display">Mar 1 | 9:08:00</div>
+            <div id="battery-display" class="battery-container">
+                <svg id="battery-icon" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="6" width="20" height="12" rx="2" ry="2" fill="#e0e0e0" />
+                    <rect id="battery-level" x="2" y="6" width="0" height="12" rx="2" ry="2" fill="#76c7c0" />
+                    <rect id="battery-charge" x="21" y="9" width="1" height="6" fill="#76c7c0" style="display:none;" />
+                    <svg id="lightning-bolt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="yellow" style="display:none; position: absolute; top: 2px; left: 5px;">
+                        <path d="M13 2L5 14h4v8l8-12h-4z" />
+                    </svg>
+                </svg>
+                <span id="battery-tooltip" class="tooltip"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="uv/uv.bundle.js"></script>
+    <script src="uv/uv.config.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const addTabButton = document.getElementById("add-tab");
+            const tabList = document.getElementById("tab-list");
+            const iframeContainer = document.getElementById("frame-container");
+            const inputField = document.getElementById("iv");
+            const tabSearchField = document.getElementById("tab-search");
+            const backButton = document.getElementById("back-button");
+            const forwardButton = document.getElementById("forward-button");
+            const refreshButton = document.getElementById("refresh-button");
+            let tabCounter = 1;
+
+            addTabButton.addEventListener("click", createNewTab);
+
+            inputField.addEventListener("keypress", (event) => {
+                if (event.key === "Enter") {
+                    const activeTab = tabList.querySelector(".active");
+                    if (activeTab) {
+                        const activeTabId = activeTab.dataset.tabId;
+                        const activeIframe = iframeContainer.querySelector(`[data-tab-id='${activeTabId}']`);
+                        if (activeIframe) {
+                            let inputValue = inputField.value.trim();
+                            if (!isUrl(inputValue)) {
+                                inputValue = `https://www.google.com/search?q=${encodeURIComponent(inputValue)}`;
+                            } else {
+                                if (!(inputValue.startsWith('https://') || inputValue.startsWith('http://'))) {
+                                    inputValue = 'https://' + inputValue;
+                                }
+                            }
+
+                            activeIframe.src = `/active/embed.html?url=${encodeURIComponent(inputValue)}`;
+                            updateFaviconAndTitle(activeTab, decodeURIComponent(inputField.value.trim()));
+                        }
+                    }
+                }
+            });
+
+            tabSearchField.addEventListener("keypress", (event) => {
+                if (event.key === "Enter") {
+                    const activeTab = tabList.querySelector(".active");
+                    if (activeTab) {
+                        const activeTabId = activeTab.dataset.tabId;
+                        const activeIframe = iframeContainer.querySelector(`[data-tab-id='${activeTabId}']`);
+                        if (activeIframe) {
+                            const searchQuery = tabSearchField.value.trim();
+                            const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
+                            activeIframe.src = `https://playervpn.github.io/active/embed.html?url=${encodeURIComponent(searchUrl)}`;
+                            updateFaviconAndTitle(activeTab, searchQuery);
+                        }
+                    }
+                }
+            });
+
+            backButton.addEventListener("click", () => {
+                const activeTab = tabList.querySelector(".active");
+                if (activeTab) {
+                    const activeTabId = activeTab.dataset.tabId;
+                    const activeIframe = iframeContainer.querySelector(`[data-tab-id='${activeTabId}']`);
+                    if (activeIframe) {
+                        activeIframe.contentWindow.history.back();
+                    }
+                }
+            });
+
+            forwardButton.addEventListener("click", () => {
+                const activeTab = tabList.querySelector(".active");
+                if (activeTab) {
+                    const activeTabId = activeTab.dataset.tabId;
+                    const activeIframe = iframeContainer.querySelector(`[data-tab-id='${activeTabId}']`);
+                    if (activeIframe) {
+                        activeIframe.contentWindow.history.forward();
+                    }
+                }
+            });
+
+            refreshButton.addEventListener("click", () => {
+                const activeTab = tabList.querySelector(".active");
+                if (activeTab) {
+                    const activeTabId = activeTab.dataset.tabId;
+                    const activeIframe = iframeContainer.querySelector(`[data-tab-id='${activeTabId}']`);
+                    if (activeIframe) {
+                        activeIframe.src = activeIframe.src;
+                    }
+                }
+            });
+
+            function createNewTab() {
+                const newTab = document.createElement("li");
+                const newIframe = document.createElement("iframe");
+                newTab.dataset.tabId = tabCounter;
+
+                const favicon = document.createElement("img");
+                favicon.src = `https://www.google.com/s2/favicons?domain=https://www.example.com&sz=24`;
+                favicon.alt = ".";
+
+                const closeButton = document.createElement("button");
+                closeButton.textContent = "×";
+                closeButton.className = "close-btn";
+                closeButton.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    closeTab(newTab, newIframe);
+                });
+
+                newTab.appendChild(favicon);
+                newTab.appendChild(document.createTextNode('New Tab'));
+                newTab.appendChild(closeButton);
+                newTab.classList.add("active");
+                newIframe.classList.add("active");
+                newIframe.dataset.tabId = tabCounter;
+
+                tabList.appendChild(newTab);
+                iframeContainer.appendChild(newIframe);
+                tabCounter++;
+                switchTab({ target: newTab });
+            }
+
+            function updateFaviconAndTitle(tab, title) {
+                const favicon = tab.querySelector("img");
+                if (favicon) {
+                    favicon.src = `https://www.google.com/s2/favicons?domain=${title}&sz=24`;
+                }
+
+                tab.childNodes[1].nodeValue = title;
+            }
+
+            function switchTab(event) {
+                const tabId = event.target.tagName === "LI" ? event.target.dataset.tabId : event.target.closest("li").dataset.tabId;
+                Array.from(tabList.children).forEach(tab => tab.classList.remove("active"));
+                Array.from(iframeContainer.children).forEach(iframe => iframe.classList.remove("active"));
+
+                const selectedTab = tabList.querySelector(`[data-tab-id='${tabId}']`);
+                if (selectedTab) {
+                    selectedTab.classList.add("active");
+                    const selectedIframe = iframeContainer.querySelector(`[data-tab-id='${tabId}']`);
+                    if (selectedIframe) {
+                        selectedIframe.classList.add("active");
+                    }
+                }
+            }
+
+            function closeTab(tab, iframe) {
+                tab.remove();
+                iframe.remove();
+                const nextTab = tabList.querySelector(".active") ? tabList.querySelector(".active").nextElementSibling : tabList.lastElementChild;
+                if (nextTab) {
+                    nextTab.click();
+                } else {
+                    const previousTab = tabList.lastElementChild;
+                    if (previousTab) {
+                        previousTab.click();
+                    }
+                }
+            }
+
+            function isUrl(url) {
+                const pattern = new RegExp('^(https?:\\/\\/)?' +
+                    '((([a-z0-9][-a-z0-9]*[a-z0-9])?\\.)+[a-z]{2,}|' +
+                    'localhost|' +
+                    '\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|' +
+                    '[?[a-f0-9]*:[a-f0-9:]+])' +
+                    '(\\:\\d+)?(\\/[-a-z0-9%_.~+]*)*' +
+                    '(\\?[;&a-z0-9%_.~+=-]*)?' +
+                    '(\\#[-a-z0-9_]*)?$','i');
+                return !!pattern.test(url);
+            }
+
+            tabList.addEventListener("click", switchTab);
+            createNewTab();
+        });
+
+        function updateTime() {
+            const now = new Date();
+            const optionsDate = { month: 'short', day: 'numeric' };
+            const date = now.toLocaleDateString('en-US', optionsDate);
+            const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+            const time = now.toLocaleTimeString('en-US', optionsTime);
+            document.getElementById('time-display').textContent = `${date} | ${time}`;
+        }
+
+        function updateBatteryStatus(battery) {
+            const batteryLevel = document.getElementById('battery-level');
+            const batteryCharge = document.getElementById('battery-charge');
+            const lightningBolt = document.getElementById('lightning-bolt');
+            
+            batteryLevel.setAttribute('width', `${battery.level * 20}`);
+            batteryCharge.style.display = battery.charging ? 'block' : 'none';
+            
+            const batteryPercentage = `${Math.floor(battery.level * 100)}%`;
+            const tooltipText = battery.charging ? `${batteryPercentage} - charging` : batteryPercentage;
+            
+            const tooltip = document.getElementById('battery-tooltip');
+            tooltip.textContent = tooltipText;
+
+            lightningBolt.style.display = battery.charging ? 'block' : 'none';
+        }
+
+        if ('getBattery' in navigator) {
+            navigator.getBattery().then(function(battery) {
+                updateBatteryStatus(battery);
+                battery.addEventListener('levelchange', function() {
+                    updateBatteryStatus(battery);
+                });
+                battery.addEventListener('chargingchange', function() {
+                    updateBatteryStatus(battery);
+                });
+            });
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const logoIcon = document.getElementById("logo-icon");
+            if (logoIcon) {
+                logoIcon.addEventListener("click", function () {
+                    window.location.href = "newpage.html";
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
