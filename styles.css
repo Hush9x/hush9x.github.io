@@ -209,3 +209,17 @@ body {
 #search-icon {
     cursor: pointer;
 }
+
+.credit {
+    font-family: Ubuntu, sans-serif;
+    font-weight: bold; 
+    color: white; 
+    font-size: 2vh;  
+    margin-right: 0px;
+    position: absolute; 
+    top: 63%;
+    left: 35%; 
+    text-decoration: underline;
+    text-shadow: #ffffff;
+    transform: translate(-15%, -50%); 
+}
